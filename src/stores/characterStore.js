@@ -20,7 +20,6 @@ export const useCharacterStore = defineStore('characterStore', () => {
         const allCharacters = responses.flatMap((response) => response.results)
         characters.value = allCharacters
         isLoaded.value = true
-        console.log('fetch yapıldı')
       } catch (error) {
         console.error('Error fetching characters:', error)
       }

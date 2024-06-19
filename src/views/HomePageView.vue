@@ -30,45 +30,34 @@ onMounted(async () => {
   await store.fetchCharacters()
   isFetchingData.value = store.isLoaded
   allCharacters.allChars = store.characters
-  uiData.characters = allCharacters.allChars.slice(0, 2)
+  uiData.characters = allCharacters.allChars.slice(0, 20)
   filteredData.value = store.characters
   // uiData.value = filteredData.value.slice(0, 2);
   // console.log(allCharacters.allChars, uiData.characters)
 })
 
-// Watch the isLoaded ref to check when data fetching is complete
-// watch(
-//   () => store.isLoaded,
-//   (newVal) => {
-//     isFetchingData.value = newVal
-//     filteredData.value = toRaw(store.characters)
-//     uiData.value = filteredData.value.slice(0, 2)
-//   }
-// )
 
 // // watch the see more button
 
 watch(count, () => {
-  uiData.characters = filteredData.value.slice(0, count.value)
+  uiData.characters = reactiveFilteredData.characters.slice(0, count.value)
 })
 
-watch(reactiveFilteredData, (char) => {
-  console.log("wathcer", char);
-  console.log("wathcer", uiData.characters);
+watch(reactiveFilteredData, (newChar) => {
+
 
   uiData.characters = [];
-  console.log("wathcer", uiData.characters);
-  uiData.characters = char.characters
-  console.log("wathcer", uiData.characters);
+
+  uiData.characters = newChar.characters.slice(0, 20)
+
 
 })
 
 
 // filter character function
 const filterCharacter = (userInput) => {
-  // uiData.value = null
   let tempData = [...toRaw(allCharacters.allChars)];
-  console.log(tempData)
+
 
 
   // Check status
@@ -79,7 +68,7 @@ const filterCharacter = (userInput) => {
       if (userInput.Unknown && item.status.toLowerCase() === 'unknown') return true
       return false
     })
-  }
+  } else { tempData=[] }
 
   // Check species
   if (
@@ -118,38 +107,28 @@ const filterCharacter = (userInput) => {
   }
 
   // Update uiData with the filtered results
-  console.log(tempData)
-
 
   reactiveFilteredData.characters = tempData
-  console.log("reactive", reactiveFilteredData)
-  console.log("reactive", reactiveFilteredData.characters)
-  // uiData.value = [...tempData];
-  // console.log(uiData.value)
-  // uiData.value = filteredData.value
-
 
 }
 
 let handleSubmit = (e) => {
+
   const formData = new FormData(e.srcElement)
-  console.log(e)
   const userInput = Object.fromEntries(formData.entries())
-  // console.log(userInput)
   filterCharacter(userInput)
 }
 
 let handleReset = () => {
-  console.log('reset Edildi')
   filteredData.value = toRaw(store.characters)
   uiData.value = filteredData.value.slice(0, 20)
 }
 
-// let handleChange = (e) => {
-//   const formData = new FormData(e.target.form)
-//   const userInput = Object.fromEntries(formData.entries())
-//   filterCharacter(userInput)
-// }
+let handleChange = (e) => {
+  const formData = new FormData(e.target.form)
+  const userInput = Object.fromEntries(formData.entries())
+  filterCharacter(userInput)
+}
 
 let seeMore = () => {
   count.value += 20
@@ -159,12 +138,12 @@ let seeMore = () => {
 <template>
   <LoadingScreen v-show="!isFetchingData" />
   <Aside v-show="isFetchingData">
-    <FormElement @reset="handleReset" @submit.prevent="(e) => handleSubmit(e)" />
+    <FormElement @reset="handleReset" @submit.prevent="(e) => handleSubmit(e)" @change="(e) => handleChange(e)" />
   </Aside>
 
   <MainSection v-show="isFetchingData">
     <template #articles>
-      <CharacterCard v-for="(character, index) in uiData.characters" :key="index" :cardData="character" />
+      <CharacterCard v-for="(character) in uiData.characters" :key="character.id" :cardData="character" />
     </template>
     <template #button>
       <button class="pagination-button" @click="seeMore">See More</button>
