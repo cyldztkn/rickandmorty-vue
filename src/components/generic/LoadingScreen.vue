@@ -62,7 +62,7 @@
 
 <script setup></script>
 
-<style scoped>
+<style>
 @keyframes scaleAnimation {
   0% {
     transform: scale(0.01);

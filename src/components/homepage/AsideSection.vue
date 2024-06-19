@@ -2,7 +2,7 @@
 import { ref } from 'vue'
 let openMenuSrc = './images/open-the-menu.svg'
 
-let asideClass = ref('open')
+let asideClass = ref('close')
 
 let menuToggler = () => {
   if (asideClass.value === 'close') {

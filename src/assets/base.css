@@ -159,9 +159,10 @@ main#error-page {
   display: flex;
   flex-direction: column;
   gap: 0px;
+  align-items: center;
 
   h1 {
-    margin: 0;
+    margin: 0 auto;
   }
 
   a {
@@ -237,6 +238,7 @@ main#error-page {
       div.rick-looking-provider {
         position: absolute;
         left: unset;
+        top: -5rem;
         overflow: hidden;
         transform: scale(0.4);
       }

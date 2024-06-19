@@ -30,15 +30,14 @@ onMounted(async () => {
   await store.fetchCharacters()
   isFetchingData.value = store.isLoaded
   allCharacters.allChars = store.characters
-  uiData.characters = allCharacters.allChars.slice(0, 20)
+  uiData.characters = allCharacters.allChars.slice(0, count.value)
   filteredData.value = store.characters
-  // uiData.value = filteredData.value.slice(0, 2);
-  // console.log(allCharacters.allChars, uiData.characters)
+  reactiveFilteredData.characters = store.characters
+
 })
 
 
 // // watch the see more button
-
 watch(count, () => {
   uiData.characters = reactiveFilteredData.characters.slice(0, count.value)
 })
@@ -48,7 +47,7 @@ watch(reactiveFilteredData, (newChar) => {
 
   uiData.characters = [];
 
-  uiData.characters = newChar.characters.slice(0, 20)
+  uiData.characters = newChar.characters.slice(0, count.value)
 
 
 })
@@ -57,6 +56,7 @@ watch(reactiveFilteredData, (newChar) => {
 // filter character function
 const filterCharacter = (userInput) => {
   let tempData = [...toRaw(allCharacters.allChars)];
+  count.value = 20;
 
 
 
@@ -68,7 +68,7 @@ const filterCharacter = (userInput) => {
       if (userInput.Unknown && item.status.toLowerCase() === 'unknown') return true
       return false
     })
-  } else { tempData=[] }
+  } else { tempData = [] }
 
   // Check species
   if (
@@ -120,8 +120,9 @@ let handleSubmit = (e) => {
 }
 
 let handleReset = () => {
+  count.value = 20;
   filteredData.value = toRaw(store.characters)
-  uiData.value = filteredData.value.slice(0, 20)
+  uiData.value = filteredData.value.slice(0, count.value)
 }
 
 let handleChange = (e) => {
@@ -131,7 +132,7 @@ let handleChange = (e) => {
 }
 
 let seeMore = () => {
-  count.value += 20
+  count.value += 20;
 }
 </script>
 
@@ -146,7 +147,8 @@ let seeMore = () => {
       <CharacterCard v-for="(character) in uiData.characters" :key="character.id" :cardData="character" />
     </template>
     <template #button>
-      <button class="pagination-button" @click="seeMore">See More</button>
+      <button class="pagination-button" @click="seeMore" v-show="reactiveFilteredData.characters.length > count">
+        See More</button>
     </template>
   </MainSection>
 </template>
