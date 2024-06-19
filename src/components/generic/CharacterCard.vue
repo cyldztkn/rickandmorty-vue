@@ -1,0 +1,124 @@
+<script setup>
+import { RouterLink } from 'vue-router'
+import { defineProps } from 'vue'
+import StatusElement from './StatusElement.vue'
+import SpeciesElement from './SpeciesElement.vue'
+
+const props = defineProps({
+  cardData: {
+    type: Object,
+    required: true
+  }
+})
+const { id, name, status, species, image } = props.cardData
+const href = `character/${id}`
+</script>
+
+<template>
+  <RouterLink :to="href">
+    <article>
+      <div className="image-container">
+        <img className="card-image" :src="image" alt="" />
+        <StatusElement :status="status" />
+      </div>
+      <section>
+        <SpeciesElement :species="species" />
+        <h1>{{ name }}</h1>
+      </section>
+    </article>
+  </RouterLink>
+</template>
+
+<style scoped>
+@keyframes loading-effect {
+  0% {
+    background: linear-gradient(270deg, var(--disable) 0%, var(--white) 8%, var(--disable) 100%);
+  }
+
+  15% {
+    background: linear-gradient(270deg, var(--disable) 0%, var(--white) 16%, var(--disable) 100%);
+  }
+
+  30% {
+    background: linear-gradient(270deg, var(--disable) 0%, var(--white) 20%, var(--disable) 100%);
+  }
+
+  70% {
+    background: linear-gradient(270deg, var(--disable) 0%, var(--white) 80%, var(--disable) 100%);
+  }
+
+  85% {
+    background: linear-gradient(270deg, var(--disable) 0%, var(--white) 88%, var(--disable) 100%);
+  }
+
+  100% {
+    background: linear-gradient(270deg, var(--disable) 0%, var(--white) 92%, var(--disable) 100%);
+  }
+}
+
+article {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  display: flex;
+  border-radius: 24px;
+  background: var(--Primary, #1e2838);
+  padding: 12px;
+  box-shadow: var(--card-shadow);
+  text-align: center;
+
+  div.image-container {
+    border-radius: 4px;
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+    border-radius: 12px;
+    aspect-ratio: 1/1;
+
+    img.card-image {
+      aspect-ratio: 1/1;
+      width: 100%;
+      height: 100%;
+      border-radius: 12px;
+      object-fit: fill;
+      animation-name: loading-effect;
+      animation-duration: 800ms;
+      animation-timing-function: linear;
+      animation-delay: 0s;
+      animation-direction: alternate;
+      animation-iteration-count: infinite;
+    }
+  }
+
+  section {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 0px;
+    flex: 1 0 auto;
+
+    h1 {
+      margin: 0;
+    }
+  }
+}
+
+article:hover {
+  box-shadow: var(--card-hover-shadow);
+}
+
+@media screen and (max-width: 744px) {
+  main {
+    a {
+      width: 100%;
+      max-width: unset;
+    }
+
+    article {
+      padding: 8px;
+      gap: 8px;
+      border-radius: 12px;
+    }
+  }
+}
+</style>

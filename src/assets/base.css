@@ -29,18 +29,29 @@ a {
   /* shadows */
 
   /* provider shadows */
-  --main-shadow: -3px 0px 118px 0px #1E2838, -1.37px 0px 54.095px 0px #18202D, -0.77px 0px 24.004px 0px #121822, -0.47px 0px 7.328px 0px #0C1016, -0.29px 0px 0px 0px #090C11, -0.18px 0px 0px 0px #06080B, -0.1px 0px 0px 0px #030406, -0.04px 0px 0px 0px #000;
-  --sidebar-shadow: 3px 0px 118px 0px #1E2838, 1.37px 0px 54.095px 0px #18202D, 0.77px 0px 24.004px 0px #121822, 0.47px 0px 7.328px 0px #0C1016, 0.29px 0px 0px 0px #090C11, 0.18px 0px 0px 0px #06080B, 0.1px 0px 0px 0px #030406, 0.04px 0px 0px 0px #000;
+  --main-shadow: -3px 0px 118px 0px #1e2838, -1.37px 0px 54.095px 0px #18202d,
+    -0.77px 0px 24.004px 0px #121822, -0.47px 0px 7.328px 0px #0c1016, -0.29px 0px 0px 0px #090c11,
+    -0.18px 0px 0px 0px #06080b, -0.1px 0px 0px 0px #030406, -0.04px 0px 0px 0px #000;
+  --sidebar-shadow: 3px 0px 118px 0px #1e2838, 1.37px 0px 54.095px 0px #18202d,
+    0.77px 0px 24.004px 0px #121822, 0.47px 0px 7.328px 0px #0c1016, 0.29px 0px 0px 0px #090c11,
+    0.18px 0px 0px 0px #06080b, 0.1px 0px 0px 0px #030406, 0.04px 0px 0px 0px #000;
   --card-shadow: 0px -0.773px 24.004px 0px #121822;
   /* state shadows */
-  --card-hover-shadow: 0px -0.472px 7.328px 0px #0C1016, 0px -0.292px 0px 0px #090C11, 0px -0.175px 0px 0px #06080B, 0px -0.096px 0px 0px #030406, 0px -0.04px 0px 0px #000;
-  --input-focus-shadow: 0px -13px 53px 0px rgba(0, 181, 205, 0.20), 0px 13px 53px 0px rgba(0, 181, 205, 0.20), 0px -3px 11.838px 0px rgba(0, 181, 205, 0.08), 0px 3px 11.838px 0px rgba(0, 181, 205, 0.08), 0px -8px 3.525px 0px rgba(0, 181, 205, 0.06), 0px 8px 3.525px 0px rgba(0, 181, 205, 0.06);
-  --button-hover-shadow: 0px -13px 53px 0px rgba(0, 181, 205, 0.20), 0px 13px 53px 0px rgba(0, 181, 205, 0.20), 0px -3px 11.838px 0px rgba(0, 181, 205, 0.08), 0px 3px 11.838px 0px rgba(0, 181, 205, 0.08), 0px -8px 3.525px 0px rgba(0, 181, 205, 0.06), 0px 8px 3.525px 0px rgba(0, 181, 205, 0.06);
+  --card-hover-shadow: 0px -0.472px 7.328px 0px #0c1016, 0px -0.292px 0px 0px #090c11,
+    0px -0.175px 0px 0px #06080b, 0px -0.096px 0px 0px #030406, 0px -0.04px 0px 0px #000;
+  --input-focus-shadow: 0px -13px 53px 0px rgba(0, 181, 205, 0.2),
+    0px 13px 53px 0px rgba(0, 181, 205, 0.2), 0px -3px 11.838px 0px rgba(0, 181, 205, 0.08),
+    0px 3px 11.838px 0px rgba(0, 181, 205, 0.08), 0px -8px 3.525px 0px rgba(0, 181, 205, 0.06),
+    0px 8px 3.525px 0px rgba(0, 181, 205, 0.06);
+  --button-hover-shadow: 0px -13px 53px 0px rgba(0, 181, 205, 0.2),
+    0px 13px 53px 0px rgba(0, 181, 205, 0.2), 0px -3px 11.838px 0px rgba(0, 181, 205, 0.08),
+    0px 3px 11.838px 0px rgba(0, 181, 205, 0.08), 0px -8px 3.525px 0px rgba(0, 181, 205, 0.06),
+    0px 8px 3.525px 0px rgba(0, 181, 205, 0.06);
 
   /* transition */
 
-  --transition: all 0.8s cubic-bezier(.63, .03, .68, 1.2);
-  --input-transition: all 0.4s cubic-bezier(.63, .03, .68, 1.2);
+  --transition: all 0.8s cubic-bezier(0.63, 0.03, 0.68, 1.2);
+  --input-transition: all 0.4s cubic-bezier(0.63, 0.03, 0.68, 1.2);
 
   /* text proporties */
   font-size: 16px;
@@ -76,7 +87,7 @@ h2 {
 
 /* custon checkbox */
 
-input[type="checkbox"] {
+input[type='checkbox'] {
   -webkit-appearance: none;
   appearance: none;
   border: 1px solid var(--secondary-default);
@@ -87,8 +98,8 @@ input[type="checkbox"] {
   position: relative;
 }
 
-input[type="checkbox"]::before {
-  content: "";
+input[type='checkbox']::before {
+  content: '';
   width: 0.6rem;
   height: 0.6rem;
   transform: scale(0);
@@ -100,7 +111,7 @@ input[type="checkbox"]::before {
   left: calc(0px + 0.15rem);
 }
 
-input[type="checkbox"]:checked::before {
+input[type='checkbox']:checked::before {
   transform: scale(1);
 }
 
@@ -171,7 +182,6 @@ main#error-page {
     transform: scale(0.6);
     position: relative;
 
-
     svg#rick-portal-rotating {
       transform: rotate3d(1, 0, 0, 90deg);
     }
@@ -181,31 +191,22 @@ main#error-page {
       left: 0;
       top: 16px;
       overflow: hidden;
-      transform: scale(0.70);
-
+      transform: scale(0.7);
 
       svg#rick-looking {
         /* transform: translateY(120px) scale(0.7); */
         animation-name: lookAnim;
         animation-duration: 6000ms;
-        animation-timing-function: cubic-bezier(.63, .03, .68, 1.2);
+        animation-timing-function: cubic-bezier(0.63, 0.03, 0.68, 1.2);
         transform: translateY(80px) scale(0.8);
         animation-direction: alternate;
         animation-iteration-count: infinite;
       }
-
     }
-
-
-
   }
 }
 
-
-
-
 @media screen and (max-width: 744px) {
-
   #app {
     display: block;
     padding: 1.5rem 0rem;
@@ -231,17 +232,14 @@ main#error-page {
 
       svg#rick-portal-rotating {
         transform: rotate3d(1, 0, 0, 80deg);
-
       }
 
       div.rick-looking-provider {
         position: absolute;
         left: unset;
         overflow: hidden;
-        transform: scale(0.40);
+        transform: scale(0.4);
       }
-
     }
-
   }
 }
