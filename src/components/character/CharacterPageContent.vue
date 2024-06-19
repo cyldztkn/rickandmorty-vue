@@ -5,7 +5,7 @@ import CharacterImage from '@/components/character/CharacterImage.vue';
 import CharacterInfo from '@/components/character/CharacterInfo.vue';
 import LoadingScreen from '../generic/LoadingScreen.vue';
 
-const path = window.location.pathname.split("/").slice(-1)[0]; 
+const path = window.location.pathname.split("/").slice(-1)[0];
 let data = reactive({
     content: null
 });

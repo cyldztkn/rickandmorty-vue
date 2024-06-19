@@ -61,7 +61,7 @@ onMounted(async () => {
         <div class="container" v-if="allEpisodesData.allEpisodeNames">
             <h1>Episodes</h1>
             <ul>
-                <li v-for="episode in allEpisodesData.allEpisodeNames.slice(0, 7)" :key="episode.name">
+                <li v-for="episode in allEpisodesData.allEpisodeNames.slice(0, 6)" :key="episode.name">
                     <p class="list-title">{{ episode.episode }}</p>
                     <p class="list-content">{{ episode.name }}</p>
                 </li>
