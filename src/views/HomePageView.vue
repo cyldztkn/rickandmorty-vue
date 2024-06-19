@@ -35,9 +35,7 @@ onMounted(async () => {
   uiData.characters = allCharacters.allChars.slice(0, count.value)
   filteredData.value = store.characters
   reactiveFilteredData.characters = store.characters
-
 })
-
 
 // // watch the see more button
 watch(count, () => {
@@ -45,22 +43,15 @@ watch(count, () => {
 })
 
 watch(reactiveFilteredData, (newChar) => {
-
-
-  uiData.characters = [];
+  uiData.characters = []
 
   uiData.characters = newChar.characters.slice(0, count.value)
-
-
 })
-
 
 // filter character function
 const filterCharacter = (userInput) => {
-  let tempData = [...toRaw(allCharacters.allChars)];
-  count.value = 20;
-
-
+  let tempData = [...toRaw(allCharacters.allChars)]
+  count.value = 20
 
   // Check status
   if (userInput.Dead || userInput.Alive || userInput.Unknown) {
@@ -70,7 +61,9 @@ const filterCharacter = (userInput) => {
       if (userInput.Unknown && item.status.toLowerCase() === 'unknown') return true
       return false
     })
-  } else { tempData = [] }
+  } else {
+    tempData = []
+  }
 
   // Check species
   if (
@@ -111,20 +104,18 @@ const filterCharacter = (userInput) => {
   // Update uiData with the filtered results
 
   reactiveFilteredData.characters = tempData
-
 }
 
 // form handlers
 
 let handleSubmit = (e) => {
-
   const formData = new FormData(e.srcElement)
   const userInput = Object.fromEntries(formData.entries())
   filterCharacter(userInput)
 }
 
 let handleReset = () => {
-  count.value = 20;
+  count.value = 20
   filteredData.value = toRaw(store.characters)
   uiData.value = filteredData.value.slice(0, count.value)
 }
@@ -137,23 +128,36 @@ let handleChange = (e) => {
 
 // see more
 let seeMore = () => {
-  count.value += 20;
+  count.value += 20
 }
 </script>
 
 <template>
   <LoadingScreen v-show="!isFetchingData" />
   <Aside v-show="isFetchingData">
-    <FormElement @reset="handleReset" @submit.prevent="(e) => handleSubmit(e)" @change="(e) => handleChange(e)" />
+    <FormElement
+      @reset="handleReset"
+      @submit.prevent="(e) => handleSubmit(e)"
+      @change="(e) => handleChange(e)"
+    />
   </Aside>
 
   <MainSection v-show="isFetchingData">
     <template #articles>
-      <CharacterCard v-for="(character) in uiData.characters" :key="character.id" :cardData="character" />
+      <CharacterCard
+        v-for="character in uiData.characters"
+        :key="character.id"
+        :cardData="character"
+      />
     </template>
     <template #button>
-      <button class="pagination-button" @click="seeMore" v-show="reactiveFilteredData.characters.length > count">
-        See More</button>
+      <button
+        class="pagination-button"
+        @click="seeMore"
+        v-show="reactiveFilteredData.characters.length > count"
+      >
+        See More
+      </button>
     </template>
   </MainSection>
 </template>

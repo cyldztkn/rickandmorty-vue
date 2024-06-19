@@ -29,7 +29,7 @@ main {
     flex-wrap: wrap;
     align-items: center;
     justify-content: space-evenly;
-    gap: 16px;
+    gap: 12px;
 
     a {
       flex: 25% 1 auto;
