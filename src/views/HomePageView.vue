@@ -1,6 +1,6 @@
 <script setup>
 // Vue Components
-import { watch, ref, onMounted, toRaw } from 'vue'
+import { watch, ref, onMounted, toRaw, reactive } from 'vue'
 // Ui Components
 import Aside from '@/components/homepage/AsideSection.vue'
 import MainSection from '@/components/homepage/MainSection.vue'
@@ -13,17 +13,27 @@ import { useCharacterStore } from '@/stores/characterStore'
 
 const store = useCharacterStore()
 const isFetchingData = ref(false)
-let uiData = ref([])
+let allCharacters = reactive({
+  allChars: []
+})
+let uiData = reactive({
+  characters: []
+})
+let reactiveFilteredData = reactive({
+  characters: []
+})
 let count = ref(20)
-let filteredData = ref([])
+let filteredData = reactive([])
 
 // Fetch characters when the component mounts
 onMounted(async () => {
   await store.fetchCharacters()
   isFetchingData.value = store.isLoaded
-  filteredData.value = toRaw(store.characters)
-  uiData.value = filteredData.value.slice(0, 20);
-  console.log('mount oldu')
+  allCharacters.allChars = store.characters
+  uiData.characters = allCharacters.allChars.slice(0, 2)
+  filteredData.value = store.characters
+  // uiData.value = filteredData.value.slice(0, 2);
+  // console.log(allCharacters.allChars, uiData.characters)
 })
 
 // Watch the isLoaded ref to check when data fetching is complete
@@ -39,14 +49,27 @@ onMounted(async () => {
 // // watch the see more button
 
 watch(count, () => {
-  uiData.value = filteredData.value.slice(0, count.value)
+  uiData.characters = filteredData.value.slice(0, count.value)
+})
+
+watch(reactiveFilteredData, (char) => {
+  console.log("wathcer", char);
+  console.log("wathcer", uiData.characters);
+
+  uiData.characters = [];
+  console.log("wathcer", uiData.characters);
+  uiData.characters = char.characters
+  console.log("wathcer", uiData.characters);
+
 })
 
 
 // filter character function
 const filterCharacter = (userInput) => {
   // uiData.value = null
-  let tempData = toRaw(store.characters)
+  let tempData = [...toRaw(allCharacters.allChars)];
+  console.log(tempData)
+
 
   // Check status
   if (userInput.Dead || userInput.Alive || userInput.Unknown) {
@@ -95,13 +118,17 @@ const filterCharacter = (userInput) => {
   }
 
   // Update uiData with the filtered results
-  // filteredData.value = tempData
-  console.log("UI DATA ÖNCE",tempData, toRaw(uiData.value))
-  uiData.value = null
-  filteredData.value = [...tempData]
-  uiData.value = [...toRaw(filteredData.value)]
-  console.log("UI DATA Sonra",tempData, toRaw(uiData.value))
-  console.log(tempData, uiData?.value?.length, filteredData?.value?.length)
+  console.log(tempData)
+
+
+  reactiveFilteredData.characters = tempData
+  console.log("reactive", reactiveFilteredData)
+  console.log("reactive", reactiveFilteredData.characters)
+  // uiData.value = [...tempData];
+  // console.log(uiData.value)
+  // uiData.value = filteredData.value
+
+
 }
 
 let handleSubmit = (e) => {
@@ -137,7 +164,7 @@ let seeMore = () => {
 
   <MainSection v-show="isFetchingData">
     <template #articles>
-      <CharacterCard v-for="(character, index) in uiData" :key="index" :cardData="character" />
+      <CharacterCard v-for="(character, index) in uiData.characters" :key="index" :cardData="character" />
     </template>
     <template #button>
       <button class="pagination-button" @click="seeMore">See More</button>
