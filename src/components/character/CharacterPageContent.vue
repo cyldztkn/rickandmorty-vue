@@ -1,5 +1,6 @@
 <script setup>
 import { onMounted, ref, reactive } from 'vue';
+
 import CharacterImage from '@/components/character/CharacterImage.vue';
 import CharacterInfo from '@/components/character/CharacterInfo.vue';
 import LoadingScreen from '../generic/LoadingScreen.vue';
@@ -17,7 +18,6 @@ onMounted(async () => {
         const result = await response.json();
         data.content = result;
         isLoaded.value = true;
-        // console.log(data.content, "OK");
     } catch (error) {
         console.error("Fetch error: ", error);
     }

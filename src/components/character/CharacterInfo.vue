@@ -32,7 +32,7 @@ onMounted(async () => {
 </script>
 
 <template>
-    <div class="CharacterInfo" v-if="allEpisodesData.allEpisodeNames">
+    <div class="CharacterInfo">
         <div class="container">
             <h1>{{ data.name }}</h1>
             <ul>
@@ -58,7 +58,7 @@ onMounted(async () => {
                 </li>
             </ul>
         </div>
-        <div class="container">
+        <div class="container" v-if="allEpisodesData.allEpisodeNames">
             <h1>Episodes</h1>
             <ul>
                 <li v-for="episode in allEpisodesData.allEpisodeNames.slice(0, 7)" :key="episode.name">

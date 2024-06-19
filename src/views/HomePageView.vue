@@ -12,6 +12,8 @@ import FormElement from '@/components/homepage/FormElement.vue'
 import { useCharacterStore } from '@/stores/characterStore'
 
 const store = useCharacterStore()
+
+// variables
 const isFetchingData = ref(false)
 let allCharacters = reactive({
   allChars: []
@@ -112,6 +114,8 @@ const filterCharacter = (userInput) => {
 
 }
 
+// form handlers
+
 let handleSubmit = (e) => {
 
   const formData = new FormData(e.srcElement)
@@ -131,6 +135,7 @@ let handleChange = (e) => {
   filterCharacter(userInput)
 }
 
+// see more
 let seeMore = () => {
   count.value += 20;
 }
